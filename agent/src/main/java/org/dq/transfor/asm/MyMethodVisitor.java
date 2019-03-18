@@ -15,14 +15,13 @@ public class MyMethodVisitor extends MethodVisitor {
     @Override
     public void visitCode() {
         super.visitCode();
-        super.visitFieldInsn(GETFIELD, "java/lang/System", "out", "Ljava/io/PrintStream;");
+        super.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime;", false);
         super.visitLdcInsn("yyyy-MM-dd HH:mm:ss");
-        super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)V", false);
+        super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)Ljava/lang/String;", false);
         Handle bootstrap = new Handle(H_INVOKESTATIC, "java/lang/invoke/StringConcatFactory", "makeConcatWithConstants",
-                "(Ljava/lang/invoke/MethodHandles/Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;" +
-                        "Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;", false);
-        super.visitInvokeDynamicInsn("makeConcatWithConstants", "(Ljava/lang/String;)Ljava/lang/String;", bootstrap, "[begin]:");
+                "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;", false);
+        super.visitInvokeDynamicInsn("makeConcatWithConstants", "(J)Ljava/lang/String;", bootstrap, "[begin]:");
         super.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
     }
 
@@ -30,14 +29,13 @@ public class MyMethodVisitor extends MethodVisitor {
     @Override
     public void visitInsn(int opcode) {
         if (opcode >= IRETURN && opcode <= RETURN || opcode == ATHROW) {
-            super.visitFieldInsn(GETFIELD, "java/lang/System", "out", "Ljava/io/PrintStream;");
+            super.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
             super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime;", false);
             super.visitLdcInsn("yyyy-MM-dd HH:mm:ss");
-            super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)V", false);
+            super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)Ljava/lang/String;", false);
             Handle bootstrap = new Handle(H_INVOKESTATIC, "java/lang/invoke/StringConcatFactory", "makeConcatWithConstants",
-                    "(Ljava/lang/invoke/MethodHandles/Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;" +
-                            "Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;", false);
-            super.visitInvokeDynamicInsn("makeConcatWithConstants", "(Ljava/lang/String;)Ljava/lang/String;",
+                    "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;", false);
+            super.visitInvokeDynamicInsn("makeConcatWithConstants", "(J)Ljava/lang/String;",
                     bootstrap, "[end]:");
             super.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
         }
