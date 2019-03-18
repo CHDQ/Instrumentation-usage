@@ -11,10 +11,19 @@ import java.security.ProtectionDomain;
 public class MyTransfor implements ClassFileTransformer {
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-        ClassReader classReader = new ClassReader(classfileBuffer);
-        ClassWriter classWriter = new ClassWriter(0);
-        MyClassVisitor myClassVisitor = new MyClassVisitor(classWriter);
-        classReader.accept(myClassVisitor, 0);
-        return classWriter.toByteArray();
+        if (!className.contains("MainController")) {
+            return classfileBuffer;
+        }
+        try {
+            ClassReader classReader = new ClassReader(classfileBuffer);
+            ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS);
+            MyClassVisitor myClassVisitor = new MyClassVisitor(classWriter);
+            classReader.accept(myClassVisitor, 0);
+            return classWriter.toByteArray();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return classfileBuffer;
     }
 }
