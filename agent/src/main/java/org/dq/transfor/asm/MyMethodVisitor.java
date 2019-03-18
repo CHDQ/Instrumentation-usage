@@ -1,5 +1,6 @@
 package org.dq.transfor.asm;
 
+import org.joda.time.DateTime;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.MethodVisitor;
 
@@ -15,7 +16,7 @@ public class MyMethodVisitor extends MethodVisitor {
     public void visitCode() {
         super.visitCode();
         super.visitFieldInsn(GETFIELD, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime", false);
+        super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime;", false);
         super.visitLdcInsn("yyyy-MM-dd HH:mm:ss");
         super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)V", false);
         Handle bootstrap = new Handle(H_INVOKESTATIC, "java/lang/invoke/StringConcatFactory", "makeConcatWithConstants",
@@ -30,7 +31,7 @@ public class MyMethodVisitor extends MethodVisitor {
     public void visitInsn(int opcode) {
         if (opcode >= IRETURN && opcode <= RETURN || opcode == ATHROW) {
             super.visitFieldInsn(GETFIELD, "java/lang/System", "out", "Ljava/io/PrintStream;");
-            super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime", false);
+            super.visitMethodInsn(INVOKESTATIC, "org/joda/time/DateTime", "now", "()Lorg/joda/time/DateTime;", false);
             super.visitLdcInsn("yyyy-MM-dd HH:mm:ss");
             super.visitMethodInsn(INVOKEVIRTUAL, "org/joda/time/DateTime", "toString", "(Ljava/lang/String;)V", false);
             Handle bootstrap = new Handle(H_INVOKESTATIC, "java/lang/invoke/StringConcatFactory", "makeConcatWithConstants",

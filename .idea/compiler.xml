@@ -7,9 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="agent" />
-        <module name="instrument-application" />
+        <module name="simpleapplication" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="instrument-application" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

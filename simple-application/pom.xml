@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>agent</artifactId>
-    <packaging>jar</packaging>
-    <name>agent</name>
+    <artifactId>simple-application</artifactId>
+
+    <name>simple-application</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -28,12 +28,9 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>
-        <finalName>agent</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -57,18 +54,6 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.0.2</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                            </manifest>
-                            <manifestEntries><!--该参数会自动打包到MANIFEST.MF文件中-->
-                                <Premain-Class>org.dq.transfor.PreMain</Premain-Class>
-                                <Can-Redefine-Classes>true</Can-Redefine-Classes> <!--需要配置该参数才能进行更改-->
-                                <Can-Retransform-Classes>true</Can-Retransform-Classes> <!--需要配置该参数才能进行更改-->
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
