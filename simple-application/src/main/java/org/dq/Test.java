@@ -10,9 +10,7 @@ import org.joda.time.DateTime;
 public class Test {
     public void myTest() {
         try {
-            System.out.println("test" + System.currentTimeMillis());
             Thread.sleep(10000);
-            System.out.println("test");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
