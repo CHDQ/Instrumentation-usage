@@ -61,9 +61,11 @@
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
+                                <mainClass>org.dq.transformer.JVMThread</mainClass>
                             </manifest>
                             <manifestEntries><!--该参数会自动打包到MANIFEST.MF文件中-->
-                                <Premain-Class>org.dq.transfor.PreMain</Premain-Class>
+                                <Premain-Class>org.dq.transformer.PreMain</Premain-Class>
+                                <Agent-Class>org.dq.transformer.AgentMain</Agent-Class>
                                 <Can-Redefine-Classes>true</Can-Redefine-Classes> <!--需要配置该参数才能进行更改-->
                                 <Can-Retransform-Classes>true</Can-Retransform-Classes> <!--需要配置该参数才能进行更改-->
                             </manifestEntries>

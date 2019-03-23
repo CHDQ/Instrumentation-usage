@@ -1,17 +1,23 @@
-package org.dq.transfor.asm;
+package org.dq.transformer.asm;
 
-import org.joda.time.DateTime;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.util.ASMifier;
 
 
 import static org.objectweb.asm.Opcodes.*;
 
+/**
+ * 修改方法，可以用ASMifier工具反向输出字节码
+ */
 public class MyMethodVisitor extends MethodVisitor {
     public MyMethodVisitor(MethodVisitor methodVisitor) {
         super(ASM7, methodVisitor);
     }
 
+    /**
+     * 开始
+     */
     @Override
     public void visitCode() {
         super.visitCode();
@@ -25,7 +31,11 @@ public class MyMethodVisitor extends MethodVisitor {
         super.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
     }
 
-
+    /**
+     * 结束
+     *
+     * @param opcode
+     */
     @Override
     public void visitInsn(int opcode) {
         if (opcode >= IRETURN && opcode <= RETURN || opcode == ATHROW) {
