@@ -9,7 +9,6 @@ public class App {
     public static void main(String[] args) {
         synchronized (LOCK) {
             while (true) {
-                System.out.println("run myTest");
                 new Test().myTest();
             }
         }

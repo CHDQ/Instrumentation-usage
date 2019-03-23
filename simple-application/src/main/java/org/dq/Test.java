@@ -8,6 +8,7 @@ package org.dq;
 public class Test {
     public void myTest() {
         try {
+            System.out.println("run myTest");
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
