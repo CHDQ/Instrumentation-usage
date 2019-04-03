@@ -27,7 +27,12 @@ public class JVMThread {
         JVMThread.className = args[1];
         JVMThread.pid = args[0];
         VirtualMachine virtualMachine = VirtualMachine.attach(JVMThread.pid);
-        virtualMachine.loadAgent(JVMThread.class.getProtectionDomain().getCodeSource().getLocation().getPath(), JVMThread.className);
+        String os = System.getProperty("os.name");
+        String agentJarPath = JVMThread.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        if (os.toLowerCase().startsWith("win")) {//windows文件路径中开始会有/
+            agentJarPath = agentJarPath.substring(1);
+        }
+        virtualMachine.loadAgent(agentJarPath, JVMThread.className);
         virtualMachine.detach();
         System.out.println("attach running ...");
         while (true) ;
@@ -38,7 +43,12 @@ public class JVMThread {
         runtime.addShutdownHook(new Thread(() -> {
             try {
                 VirtualMachine virtualMachine = VirtualMachine.attach(JVMThread.pid);
-                virtualMachine.loadAgent(JVMThread.class.getProtectionDomain().getCodeSource().getLocation().getPath(), CLOSE_COMMAND + JVMThread.className);
+                String agentJarPath = JVMThread.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+                String os = System.getProperty("os.name");
+                if (os.toLowerCase().startsWith("win")) {//windows文件路径中开始会有/
+                    agentJarPath = agentJarPath.substring(1);
+                }
+                virtualMachine.loadAgent(agentJarPath, CLOSE_COMMAND + JVMThread.className);
                 virtualMachine.detach();
             } catch (AgentLoadException e) {
                 e.printStackTrace();
